@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import Input from "../components/Input";
+import axios from "axios";
 
 const LOGIN_VARIANTS = ["LOGIN", "SIGNUP"];
 
@@ -18,6 +19,16 @@ const Auth = () => {
       curr === LOGIN_VARIANTS[0] ? LOGIN_VARIANTS[1] : LOGIN_VARIANTS[0]
     );
   }, []);
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        username,
+        password,
+      });
+    } catch (e) {}
+  }, [email, username, password]);
 
   return (
     <div className="realtive h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-cover bg-fixed">
@@ -66,7 +77,10 @@ const Auth = () => {
                 }}
               />
             </div>
-            <button className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
+            <button
+              className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
+              onClick={() => register()}
+            >
               {variant === LOGIN_VARIANTS[0] ? "Login" : "Sign up"}
             </button>
             <p className="text-neutral-500 mt-12">
