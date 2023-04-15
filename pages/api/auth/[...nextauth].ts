@@ -1,27 +1,30 @@
 import NextAuth from "next-auth/next";
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
+import prisma from "@/app/libs/prismaDb";
+import { AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-export default NextAuth({
+const adapter = PrismaAdapter(prisma);
+const _linkAccount = adapter.linkAccount;
+adapter.linkAccount = (account) => {
+  const { "not-before-policy": _, refresh_expires_in, ...data } = account;
+  return _linkAccount(data);
+};
+const authOption: AuthOptions = {
+  adapter: adapter,
   providers: [
-    Credentials({
-      id: "credentials",
+    CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "text",
-        },
-        password: {
-          label: "Pasword",
-          type: "password",
-        },
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials!");
         }
-        const user = await prismadb?.user.findUnique({
+        const user = await prisma?.user.findUnique({
           where: {
             email: credentials.email,
           },
@@ -49,8 +52,9 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-  jwt: {
-    secret: process.env.NEXTAUTH_JWT_SECRET,
-  },
+  // jwt: {
+  //   secret: process.env.NEXTAUTH_JWT_SECRET,
+  // },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+export default NextAuth(authOption);

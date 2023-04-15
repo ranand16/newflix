@@ -4,6 +4,8 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import Input from "../components/Input";
 import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LOGIN_VARIANTS = ["LOGIN", "SIGNUP"];
 
@@ -13,6 +15,7 @@ const Auth = () => {
   const [password, setpassword] = useState("");
 
   const [variant, setvariant] = useState(LOGIN_VARIANTS[0]);
+  const router = useRouter();
 
   const toggleVariant = useCallback(() => {
     setvariant((curr) =>
@@ -20,6 +23,24 @@ const Auth = () => {
     );
   }, []);
 
+  const login = useCallback(async () => {
+    console.log("---- login ----");
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/",
+      redirect: false,
+    }).then((res) => {
+      console.log("🚀 ~ file: page.tsx:43 ~ login ~ res:", res);
+      if (res?.ok) {
+        router.push("/");
+      }
+      if (res?.error) {
+        console.log("🚀 ~ file: page.tsx:49 ~ login ~ error:", res.error);
+        console.error(res.error);
+      }
+    });
+  }, [email, password, router]);
   const register = useCallback(async () => {
     try {
       await axios.post("/api/register", {
@@ -27,8 +48,9 @@ const Auth = () => {
         username,
         password,
       });
+      await login();
     } catch (e) {}
-  }, [email, username, password]);
+  }, [email, username, password, login]);
 
   return (
     <div className="realtive h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-cover bg-fixed">
@@ -79,7 +101,7 @@ const Auth = () => {
             </div>
             <button
               className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
-              onClick={() => register()}
+              onClick={variant === LOGIN_VARIANTS[0] ? login : register}
             >
               {variant === LOGIN_VARIANTS[0] ? "Login" : "Sign up"}
             </button>
