@@ -39,23 +39,24 @@ const Auth = () => {
             <div className="flex flex-col gap-4">
               {variant === LOGIN_VARIANTS[1] && (
                 <Input
-                  id="sign-email"
-                  value={email}
-                  label="Email"
-                  type="email"
+                  id="sign-name"
+                  value={username}
+                  label="Username"
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setusername(e.target.value);
                   }}
                 />
               )}
               <Input
-                id="sign-name"
-                value={username}
-                label="Username"
+                id="sign-email"
+                value={email}
+                label="Email"
+                type="email"
                 onChange={(e) => {
-                  setusername(e.target.value);
+                  setEmail(e.target.value);
                 }}
               />
+
               <Input
                 id="sign-password"
                 value={password}
@@ -66,10 +67,12 @@ const Auth = () => {
               />
             </div>
             <button className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
-              Login
+              {variant === LOGIN_VARIANTS[0] ? "Login" : "Sign up"}
             </button>
             <p className="text-neutral-500 mt-12">
-              First time using newflix?
+              {variant === LOGIN_VARIANTS[0]
+                ? "First time using newflix?"
+                : "Already have an account?"}
               <span
                 onClick={toggleVariant}
                 className="tex-white ml-1 hover:underline cursor-pointer"
