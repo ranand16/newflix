@@ -1,19 +1,24 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import { compare } from "bcrypt";
 import prisma from "@/app/libs/prismaDb";
 import { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const adapter = PrismaAdapter(prisma);
-const _linkAccount = adapter.linkAccount;
-adapter.linkAccount = (account) => {
-  const { "not-before-policy": _, refresh_expires_in, ...data } = account;
-  return _linkAccount(data);
-};
 const authOption: AuthOptions = {
   adapter: adapter,
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {

@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { User } from "@prisma/client";
 
 export default function Home() {
+  interface NavbarProps {
+    currentUser?: User | null;
+  }
   return <main className="w-full h-full">Newflix</main>;
 }
