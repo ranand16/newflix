@@ -1,4 +1,5 @@
 import { SignoutBtn } from "./components/SignoutBtn";
+import TextControl from "./components/TextControl";
 import getCurrentUser from "./libs/getCurrentUser";
 
 export default async function Home() {
@@ -7,10 +8,12 @@ export default async function Home() {
 
   return (
     <>
-      <h1 className="text-green-400 4xl">Newflix</h1>
-      <p className="text-white">
-        Logged in as {currentUser?.curtrentUser.name}
-      </p>
+      <TextControl classNames="text-green-400 4xl" type="h1">
+        NewFlix
+      </TextControl>
+      <TextControl classNames="text-green-400 4xl" type="p">
+        Logged in as {currentUser?.name}
+      </TextControl>
       {currentUser && <SignoutBtn />}
     </>
   );

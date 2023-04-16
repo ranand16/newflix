@@ -85,6 +85,7 @@ const Auth = async () => {
                 label="Email"
                 type="email"
                 onChange={(e) => {
+                  console.log(" -- ", e);
                   setEmail(e.target.value);
                 }}
               />
@@ -94,6 +95,7 @@ const Auth = async () => {
                 value={password}
                 label="Password"
                 onChange={(e) => {
+                  console.log(" -- ", e);
                   setpassword(e.target.value);
                 }}
               />

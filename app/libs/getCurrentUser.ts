@@ -20,7 +20,7 @@ export default async function getCurrentUser() {
     if (!curtrentUser) {
       throw new Error("You are not signed in!");
     }
-    return { curtrentUser };
+    return curtrentUser;
   } catch (e) {
     console.error(e);
     return null;
