@@ -5,19 +5,17 @@ import React, { useCallback, useState } from "react";
 import Input from "../components/Input";
 import axios from "axios";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const LOGIN_VARIANTS = ["LOGIN", "SIGNUP"];
 
-const Auth = () => {
+const Auth = async () => {
   const [email, setEmail] = useState("");
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
 
   const [variant, setvariant] = useState(LOGIN_VARIANTS[0]);
-  const router = useRouter();
 
   const toggleVariant = useCallback(() => {
     setvariant((curr) =>
@@ -30,19 +28,18 @@ const Auth = () => {
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/",
-      redirect: false,
+      callbackUrl: "/profiles",
     }).then((res) => {
-      console.log("🚀 ~ file: page.tsx:43 ~ login ~ res:", res);
       if (res?.ok) {
-        router.push("/");
+        console.log("🚀 ~ file: page.tsx:43 ~ login ~ res:", res);
       }
       if (res?.error) {
         console.log("🚀 ~ file: page.tsx:49 ~ login ~ error:", res.error);
         console.error(res.error);
       }
     });
-  }, [email, password, router]);
+  }, [email, password]);
+
   const register = useCallback(async () => {
     try {
       await axios.post("/api/register", {
@@ -111,7 +108,7 @@ const Auth = () => {
               <div
                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
                 onClick={() => {
-                  signIn("google", { callbackUrl: "/" });
+                  signIn("google", { callbackUrl: "/profiles" });
                 }}
               >
                 <FcGoogle />
@@ -119,7 +116,7 @@ const Auth = () => {
               <div
                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
                 onClick={() => {
-                  signIn("github", { callbackUrl: "/" });
+                  signIn("github", { callbackUrl: "/profiles" });
                 }}
               >
                 <FaGithub />
