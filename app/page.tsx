@@ -1,5 +1,6 @@
-import { SignoutBtn } from "./components/SignoutBtn";
-import TextControl from "./components/TextControl";
+import Billboard from "./components/Billboard";
+import MovieList from "./components/MovieList";
+import Navbar from "./components/Navbar/Page";
 import getCurrentUser from "./libs/getCurrentUser";
 
 export default async function Home() {
@@ -8,13 +9,9 @@ export default async function Home() {
 
   return (
     <>
-      <TextControl classNames="text-green-400 4xl" type="h1">
-        NewFlix
-      </TextControl>
-      <TextControl classNames="text-green-400 4xl" type="p">
-        Logged in as {currentUser?.name}
-      </TextControl>
-      {currentUser && <SignoutBtn />}
+      <Navbar />
+      <Billboard />
+      <MovieList data={} title={""} />
     </>
   );
 }
