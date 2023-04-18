@@ -13,6 +13,7 @@ export default async function Home() {
       <Navbar />
       <Billboard />
       <MovieList title={"Trending Now"} />
+      <MovieList title={"My List"} />
     </>
   );
 }

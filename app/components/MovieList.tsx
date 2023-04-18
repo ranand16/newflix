@@ -6,9 +6,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 interface MovieListProps {
   title: string;
+  apiRoute: string;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ title }) => {
+const MovieList: React.FC<MovieListProps> = ({ title, apiRoute }) => {
   const [movies, setMovies] = useState<Movie[] | null>([]);
   useEffect(() => {
     const billboard = async () => {
