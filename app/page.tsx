@@ -12,8 +12,8 @@ export default async function Home() {
     <>
       <Navbar />
       <Billboard />
-      <MovieList title={"Trending Now"} />
-      <MovieList title={"My List"} />
+      <MovieList title={"Trending Now"} apiRoute="/api/movies" />
+      <MovieList title={"My List"} apiRoute="/api/favorite" />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { Movie } from "@prisma/client";
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
+import useFavorites from "../hooks/useFavorites";
 
 interface MovieItemProps {
   movie: Movie;
@@ -36,7 +37,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
             >
               <BsFillPlayFill size={30} />
             </div>
-            <FavoriteButton movieId={movie.movieId} />
+            <FavoriteButton movieId={movie.id} />
           </div>
           <p className="text-green-400 font-semibold mt-4">
             New <span className="text-white">2023</span>

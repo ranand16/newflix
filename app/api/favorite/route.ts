@@ -1,11 +1,10 @@
 import getCurrentUser from "@/app/libs/getCurrentUser";
 import client from "@/app/libs/prismaDb";
-import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import { without } from "lodash";
 
 export async function POST(request: Request) {
-  const session = await getSession();
+  const curruser = await getCurrentUser();
 
   const body = await request.json();
   const { movieId } = body;
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
 
   const user = await client.user.update({
     where: {
-      email: session?.user?.email,
+      email: curruser?.email || "",
     },
     data: {
       favoriteIds: {
@@ -32,9 +31,11 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const currentUser = await getCurrentUser();
+  console.log("🚀 ~ file: route.ts:34 ~ DELETE ~ currentUser:", currentUser);
 
   const body = await request.json();
   const { movieId } = body;
+  console.log("🚀 ~ file: route.ts:38 ~ DELETE ~ movieId:", movieId);
   const selectedMovie = await client.movie.findUnique({
     where: {
       id: movieId,
@@ -42,30 +43,36 @@ export async function DELETE(request: Request) {
   });
   if (!selectedMovie) throw new Error("Movie doesnot exist!");
 
-  const updatedFavIdList = without(currentUser.favoriteIds, movieId);
+  const updatedFavIdList = without(currentUser?.favoriteIds, movieId);
+  console.log(
+    "🚀 ~ file: route.ts:47 ~ DELETE ~ updatedFavIdList:",
+    updatedFavIdList
+  );
 
   const user = await client.user.update({
     where: {
-      email: currentUser.email,
+      email: currentUser?.email || "",
     },
     data: {
       favoriteIds: updatedFavIdList,
     },
   });
+  console.log("🚀 ~ file: route.ts:57 ~ DELETE ~ user:", user);
 
   return NextResponse.json(user);
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   const currentUser = await getCurrentUser();
+  console.log("🚀 ~ file: route.ts:61 ~ GET ~ currentUser:", currentUser);
 
   const favoriteMovies = await client.movie.findMany({
     where: {
       id: {
-        in: currentUser.favoriteIds,
+        in: currentUser?.favoriteIds,
       },
     },
   });
+  console.log("🚀 ~ file: route.ts:69 ~ GET ~ favoriteMovies:", favoriteMovies);
   return NextResponse.json(favoriteMovies);
 }
- 
