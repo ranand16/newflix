@@ -1,3 +1,4 @@
+import axios from "axios";
 import Billboard from "./components/Billboard";
 import MovieList from "./components/MovieList";
 import Navbar from "./components/Navbar/Page";
@@ -11,7 +12,7 @@ export default async function Home() {
     <>
       <Navbar />
       <Billboard />
-      <MovieList data={} title={""} />
+      <MovieList title={"Trending Now"} />
     </>
   );
 }
