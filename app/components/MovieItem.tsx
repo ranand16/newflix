@@ -2,7 +2,6 @@ import { Movie } from "@prisma/client";
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
-import useFavorites from "../hooks/useFavorites";
 
 interface MovieItemProps {
   movie: Movie;
@@ -21,7 +20,7 @@ export const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
         src={movie["thumbnailUrl"]}
         alt={movie["title"]}
       />
-      <div className="opacity-0 absolute top-0 transition duration-200 z-10 invisible sm:visible delay-300 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100">
+      <div className="opacity-0 absolute top-0 transition duration-150 z-10 invisible sm:visible delay-300 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[3vw] group-hover:translate-x-[1vw] group-hover:opacity-100">
         <img
           className={
             "cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[12vw]"
