@@ -13,10 +13,7 @@ const Billboard = () => {
     description: "",
     id: "",
   });
-  console.log(
-    "🚀 ~ file: Billboard.tsx:16 ~ Billboard ~ billboard:",
-    billboard
-  );
+
   useEffect(() => {
     const billboard = async () => {
       try {

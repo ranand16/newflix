@@ -8,7 +8,6 @@ interface WatchMovieParams {
 
 const WatchMovie: React.FC<WatchMovieParams> = ({ movieId }) => {
   const { movieData } = useMovie(movieId);
-  console.log("🚀 ~ file: page.tsx:12 ~ movieData:", movieData);
   return <div>WatchMovie</div>;
 };
 

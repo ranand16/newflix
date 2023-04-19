@@ -24,17 +24,14 @@ const Auth = async () => {
   }, []);
 
   const login = useCallback(async () => {
-    console.log("---- login ----");
     await signIn("credentials", {
       email,
       password,
       callbackUrl: "/profiles",
     }).then((res) => {
       if (res?.ok) {
-        console.log("🚀 ~ file: page.tsx:43 ~ login ~ res:", res);
       }
       if (res?.error) {
-        console.log("🚀 ~ file: page.tsx:49 ~ login ~ error:", res.error);
         console.error(res.error);
       }
     });
@@ -85,7 +82,6 @@ const Auth = async () => {
                 label="Email"
                 type="email"
                 onChange={(e) => {
-                  console.log(" -- ", e);
                   setEmail(e.target.value);
                 }}
               />
@@ -95,7 +91,6 @@ const Auth = async () => {
                 value={password}
                 label="Password"
                 onChange={(e) => {
-                  console.log(" -- ", e);
                   setpassword(e.target.value);
                 }}
               />

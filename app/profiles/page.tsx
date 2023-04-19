@@ -4,7 +4,6 @@ import TextControl from "../components/TextControl";
 
 const Profiles = async () => {
   const currentUser = await getCurrentUser();
-  console.log("🚀 ~ file: layout.tsx:27 ~ currentUser:", currentUser);
 
   return (
     <div className="flex items-center h-full justify-center">

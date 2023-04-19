@@ -7,7 +7,6 @@ interface WatchMovieParams {
 }
 const Watch = async ({ params }: { params: WatchMovieParams }) => {
   const { movieId } = params;
-  console.log("🚀 ~ file: page.tsx:12 ~ movieId:", movieId);
 
   return (
     <ClientOnly>

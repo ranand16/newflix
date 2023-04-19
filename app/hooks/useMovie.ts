@@ -2,7 +2,6 @@ import useSWR from "swr";
 import fetcher from "../libs/fetcher";
 
 const useMovie = (movieId?: string) => {
-  console.log("🚀 ~ file: useMovie.ts:5 ~ useMovie ~ movieId:", movieId);
   const { data, error, isLoading, mutate } = useSWR(
     `/api/movies/${movieId}`,
     fetcher,
@@ -12,7 +11,6 @@ const useMovie = (movieId?: string) => {
       revalidateOnReconnect: false,
     }
   );
-  console.log("🚀 ~ file: useMovie.ts:6 ~ useMovie ~ data:", data);
 
   return {
     movieData: data,
