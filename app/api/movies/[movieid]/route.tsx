@@ -14,6 +14,7 @@ export async function GET(request: Request, { params }: { params: Params }) {
   }
 
   const { movieid: movieId } = params;
+  console.log("🚀 ~ file: route.tsx:17 ~ GET ~ params:", params);
   if (!movieId || typeof movieId != "string")
     throw new Error("Invalid movie id!");
 
