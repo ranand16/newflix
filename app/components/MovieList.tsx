@@ -1,11 +1,11 @@
 "use client";
 
+import { MovieInterface } from "../types";
 import { MovieItem } from "./MovieItem";
-import { Movie } from "@prisma/client";
 import React from "react";
 interface MovieListProps {
   title: string;
-  movies: Movie[];
+  movies: MovieInterface[];
 }
 
 const MovieList: React.FC<MovieListProps> = ({ title, movies }) => {

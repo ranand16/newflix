@@ -1,13 +1,13 @@
 "use client";
 
-import { Movie } from "@prisma/client";
 import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
 import { useRouter } from "next/navigation";
+import { MovieInterface } from "../types";
 
 interface MovieItemProps {
-  movie: Movie;
+  movie: MovieInterface;
 }
 
 export const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
