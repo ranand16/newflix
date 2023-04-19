@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayBtn from "./PlayBtn";
-import { Movie } from "@prisma/client";
 
 const Billboard = () => {
   const [billboard, setBillboard] = useState({
