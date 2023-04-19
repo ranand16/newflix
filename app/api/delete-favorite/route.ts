@@ -5,28 +5,21 @@ import { without } from "lodash";
 
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
-  console.log("🚀 ~ file: route.ts:34 ~ DELETE ~ currentUser:", currentUser);
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
 
   const body = await request.json();
-  console.log("🚀 ~ file: route.ts:38 ~ DELETE ~ body:", body);
   const { movieId } = body;
-  console.log("🚀 ~ file: route.ts:38 ~ DELETE ~ movieId:", movieId);
   const selectedMovie = await client.movie.findUnique({
     where: {
       id: movieId,
     },
   });
-  console.log(
-    "🚀 ~ file: route.ts:46 ~ DELETE ~ selectedMovie:",
-    selectedMovie
-  );
   if (!selectedMovie) throw new Error("Movie doesnot exist!");
 
   const updatedFavIdList = without(currentUser?.favoriteIds, movieId);
-  console.log(
-    "🚀 ~ file: route.ts:47 ~ DELETE ~ updatedFavIdList:",
-    updatedFavIdList
-  );
 
   const user = await client.user.update({
     where: {
@@ -36,7 +29,6 @@ export async function POST(request: Request) {
       favoriteIds: updatedFavIdList,
     },
   });
-  console.log("🚀 ~ file: route.ts:57 ~ DELETE ~ user:", user);
 
   return NextResponse.json(user);
 }
