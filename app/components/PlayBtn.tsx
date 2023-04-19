@@ -8,6 +8,7 @@ interface PlayBtnProps {
 }
 
 const PlayBtn: React.FC<PlayBtnProps> = ({ movieId }) => {
+  console.log("🚀 ~ file: PlayBtn.tsx:11 ~ movieId:", movieId);
   const router = useRouter();
   return (
     <button

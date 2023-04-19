@@ -1,16 +1,19 @@
 import getCurrentUser from "@/app/libs/getCurrentUser";
 import client from "@/app/libs/prismaDb";
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
-export async function GET(request: NextApiRequest) {
+interface Params {
+  movieid?: string;
+}
+
+export async function GET(request: Request, { params }: { params: Params }) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
     return NextResponse.error();
   }
 
-  const { movieId } = request.query;
+  const { movieid: movieId } = params;
   if (!movieId || typeof movieId != "string")
     throw new Error("Invalid movie id!");
 
