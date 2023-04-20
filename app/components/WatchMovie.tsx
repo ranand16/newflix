@@ -10,9 +10,7 @@ interface WatchMovieParams {
 
 const WatchMovie: React.FC<WatchMovieParams> = ({ movieId }) => {
   const router = useRouter();
-  console.log("🚀 ~ file: WatchMovie.tsx:11 ~ movieId:", movieId);
   const { movieData } = useMovie(movieId);
-  console.log("🚀 ~ file: WatchMovie.tsx:12 ~ movieData:", movieData);
   return (
     <div className="h-screen w-screen bg-black">
       <nav className="fixed w-full p-4 z-10 flex flex-row items-center gap-8 bg-black bg-opacity-70">

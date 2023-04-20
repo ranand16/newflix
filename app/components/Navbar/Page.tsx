@@ -20,10 +20,6 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const [bg, setBg] = useState(false);
   const router = useRouter();
   const { currentUserData } = useCurrentUser();
-  console.log(
-    "🚀 ~ file: AccountMenu.tsx:12 ~ currentUserData:",
-    currentUserData
-  );
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 60) {
