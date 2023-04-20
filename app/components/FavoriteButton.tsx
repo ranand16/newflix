@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useMemo } from "react";
 import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
-import getCurrentUser from "../libs/getCurrentUser";
 import axios from "axios";
 import useFavorites from "../hooks/useFavorites";
 import useCurrentUser from "../hooks/useCurrentUser";
