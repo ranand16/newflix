@@ -28,7 +28,7 @@ const Billboard = () => {
 
   const handleOpenModal = useCallback(() => {
     onOpen(billboard?.id);
-  }, []);
+  }, [billboard, onOpen]);
   return (
     <div className="relative h-[56.25vw]">
       <video
