@@ -8,6 +8,9 @@ import useMobileMenu from "../../hooks/useMobileMenu";
 import Mobilemenu from "../MobileMenu";
 import AccountMenu from "../AccountMenu";
 import useAccountMenu from "../../hooks/useAccountMenu";
+import useCurrentUser from "@/app/hooks/useCurrentUser";
+import { AiOutlineUser } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {}
 
@@ -15,7 +18,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   const mobileMenu = useMobileMenu();
   const accountMenu = useAccountMenu();
   const [bg, setBg] = useState(false);
-
+  const router = useRouter();
+  const { currentUserData } = useCurrentUser();
+  console.log(
+    "🚀 ~ file: AccountMenu.tsx:12 ~ currentUserData:",
+    currentUserData
+  );
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 60) {
@@ -70,22 +78,37 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
             <BsBell />
           </div>
-          <div
-            className="flex flex-row items-center gap-2 cursor-pointer relative"
-            onClick={() => {
-              accountMenu.isOpen ? accountMenu.onClose() : accountMenu.onOpen();
-            }}
-          >
-            <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              <img src="/images/default-blue.png" alt="default image" />
+          {currentUserData ? (
+            <div
+              className="flex flex-row items-center gap-2 cursor-pointer relative"
+              onClick={() => {
+                accountMenu.isOpen
+                  ? accountMenu.onClose()
+                  : accountMenu.onOpen();
+              }}
+            >
+              <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
+                <img src="/images/default-blue.png" alt="default image" />
+              </div>
+              <BsChevronDown
+                className={`text-white transition ${
+                  accountMenu.isOpen ? "rotate-180" : "rotate-0"
+                }`}
+              />
+              <AccountMenu
+                visible={accountMenu.isOpen}
+                currentUserData={currentUserData}
+              />
             </div>
-            <BsChevronDown
-              className={`text-white transition ${
-                accountMenu.isOpen ? "rotate-180" : "rotate-0"
-              }`}
-            />
-            <AccountMenu visible={accountMenu.isOpen} />
-          </div>
+          ) : (
+            <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
+              <AiOutlineUser
+                onClick={() => {
+                  router.push("/auth");
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </nav>
