@@ -32,36 +32,6 @@ export async function POST(request: Request) {
   return NextResponse.json(user);
 }
 
-export async function DELETE(request: Request) {
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser) {
-    return NextResponse.error();
-  }
-  const body = await request.json();
-  const movieId = "";
-  // const { movieId } = body;
-  const selectedMovie = await client.movie.findUnique({
-    where: {
-      id: movieId,
-    },
-  });
-  if (!selectedMovie) throw new Error("Movie doesnot exist!");
-
-  const updatedFavIdList = without(currentUser?.favoriteIds, movieId);
-
-  const user = await client.user.update({
-    where: {
-      email: currentUser?.email || "",
-    },
-    data: {
-      favoriteIds: updatedFavIdList,
-    },
-  });
-
-  return NextResponse.json(user);
-}
-
 export async function GET() {
   const currentUser = await getCurrentUser();
 
