@@ -1,3 +1,5 @@
+"use client";
+
 import useSwr from "swr";
 import fetcher from "../libs/fetcher";
 

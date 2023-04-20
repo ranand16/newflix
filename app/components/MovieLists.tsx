@@ -10,13 +10,15 @@ export const MovieLists: React.FC = () => {
   const { moviesData } = useMovies();
   return (
     <>
-      <MovieList title={"Trending Now"} movies={moviesData} />
-      <MovieList
-        title={"My List"}
-        movies={favData}
-        // error={favError}
-        // loading={favIsLoading}
-      />
+      {moviesData && <MovieList title={"Trending Now"} movies={moviesData} />}
+      {favData && (
+        <MovieList
+          title={"My List"}
+          movies={favData}
+          // error={favError}
+          // loading={favIsLoading}
+        />
+      )}
     </>
   );
 };

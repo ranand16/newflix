@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
-import getCurrentUser from "../libs/getCurrentUser";
 import TextControl from "../components/TextControl";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const Profiles = async () => {
-  const currentUser = await getCurrentUser();
+  const { currentUserData } = useCurrentUser();
 
   return (
     <div className="flex items-center h-full justify-center">
@@ -20,7 +22,7 @@ const Profiles = async () => {
               <img src={"/images/default-blue.png"} alt="me" />
             </div>
             <TextControl classNames="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-              {currentUser?.name}
+              ~{currentUserData?.name}
             </TextControl>
           </div>
           <div className="group flex-row w-44 mx-auto">
@@ -28,7 +30,7 @@ const Profiles = async () => {
               <img src={"/images/default-green.png"} alt="me" />
             </div>
             <TextControl classNames="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-              {currentUser?.name}
+              {currentUserData?.name}
             </TextControl>
           </div>
         </div>
