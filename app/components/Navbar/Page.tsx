@@ -12,6 +12,7 @@ import useCurrentUser from "@/app/hooks/useCurrentUser";
 import { AiOutlineUser } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import TextControl from "../TextControl";
+import { NAV_ITEMS } from "@/app/utils/constants";
 
 interface NavbarProps {}
 

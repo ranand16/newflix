@@ -17,7 +17,7 @@ const ClientComponentOnly: React.FC<ClientComponentOnlyProps> = ({
 
   if (!hasLoaded) return null;
 
-  return <>{children}</>;
+  return <div className="pb-20">{children}</div>;
 };
 
 export default ClientComponentOnly;

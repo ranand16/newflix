@@ -1,4 +1,4 @@
-const NAV_ITEMS = [
+export const NAV_ITEMS = [
   "Home",
   "Series",
   "Films",
