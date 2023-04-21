@@ -11,6 +11,7 @@ import useAccountMenu from "../../hooks/useAccountMenu";
 import useCurrentUser from "@/app/hooks/useCurrentUser";
 import { AiOutlineUser } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import TextControl from "../TextControl";
 
 interface NavbarProps {}
 
@@ -46,12 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           alt="new flix logo"
         />
         <div className="flex-row ml-8 gap-7 hidden lg:flex">
-          <NavbarItem label="Home" />
-          <NavbarItem label="Series" />
-          <NavbarItem label="Films" />
-          <NavbarItem label="New & Popular" />
-          <NavbarItem label="My List" />
-          <NavbarItem label="Browse by languages" />
+          {NAV_ITEMS.map((item) => (
+            <NavbarItem key={item} label={item} />
+          ))}
         </div>
         <div
           onClick={() => {
@@ -59,7 +57,9 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
           }}
           className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative"
         >
-          <p className="text-white text-sm">Browse</p>
+          <TextControl classNames="text-white text-sm" type="p">
+            Browse
+          </TextControl>
           <BsChevronDown
             className={`text-white transition ${
               mobileMenu.isOpen ? "rotate-180" : "rotate-0"

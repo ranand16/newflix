@@ -1,4 +1,4 @@
-import ClientOnly from "@/app/components/ClientOnly";
+import ClientOnly from "@/app/components/ClientComponentOnly";
 import WatchMovie from "@/app/components/WatchMovie";
 import axios from "axios";
 import React from "react";

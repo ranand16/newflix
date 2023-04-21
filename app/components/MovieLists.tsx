@@ -11,14 +11,7 @@ export const MovieLists: React.FC = () => {
   return (
     <>
       {moviesData && <MovieList title={"Trending Now"} movies={moviesData} />}
-      {favData && (
-        <MovieList
-          title={"My List"}
-          movies={favData}
-          // error={favError}
-          // loading={favIsLoading}
-        />
-      )}
+      {favData && <MovieList title={"My List"} movies={favData} />}
     </>
   );
 };
